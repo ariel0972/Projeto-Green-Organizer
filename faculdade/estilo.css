@@ -1,0 +1,10 @@
+.tabs{
+    background-color: lightgreen;
+    color: white;
+    padding: 20px;
+    text-align: center; 
+    font-size: 16px;
+    align-items:  left;}
+
+    .tabs:hover {
+    background-color: green;}
