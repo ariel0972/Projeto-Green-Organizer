@@ -149,7 +149,7 @@ header.sticky{
     margin-bottom: 30px;
 }
 .center-text span{
-    color: yellow;
+    color: black;
 }
 .products{
     display: grid;
@@ -189,7 +189,7 @@ header.sticky{
     font-size: 20px;
 }
 .heart-icon:hover{
-    color: yellow;
+    color: black;
 }
 .rayying i{
     color: #ff8c00;
@@ -220,7 +220,7 @@ header.sticky{
     font-weight: 700;
 }
 .client-reviews h3 span{
-    color: yellow;
+    color: black;
 }
 .reviews img{
     width: 100px;
