@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\faculdade"
+    "\\faculdade",
+    "\\faculdade\\img",
+    "\\src"
   ],
-  "SelectedNode": "\\faculdade\\index.html",
+  "SelectedNode": "\\src\\login.html",
   "PreviewInSolutionExplorer": false
 }
