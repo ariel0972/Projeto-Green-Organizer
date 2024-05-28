@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    scroll-behavior: smooth;
+}
+
+:root {
+    font-size: 125%; /* 20px */
+    font-family: 'DM Sans', sans-serif;
+
+    --font-size-1: 2.25rem; /* 45px */
+    --font-size-2: 1.75rem; /* 35px */
+    --font-size-3: 1.25rem; /* 25px */ 
+    --font-size-4: 1rem;  /* 20px */
+    --font-size-5: 0.75rem;  /* 15px */
+
+    --color-blue-1: #1c6cf9;
+    --color-blue-2: #33489D;
+    --color-blue-3: #141E41;
+
+    --color-pink-1: #f42771;
+    
+    --color-black-1: #181818;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --font-size-1: 2.8rem;  /* 56px */
+        --font-size-2: 2rem;  /* 40px */
+        --font-size-3: 1.5rem;  /* 30px */
+    }
+}  
+
+h1 {
+    font-size: var(--font-size-1)
+}
+
+h2 {
+    font-size: var(--font-size-2)
+}
+
+h3 {
+    font-size: var(--font-size-3)
+}
+
+a {
+    text-decoration: none;
+}
+
+p, a {
+    font-size: var(--font-size-4);
+    font-weight: 200;
+    color: var(--color-black-1)
+}
+
+.container {
+    padding: 40px 20px;
+}
+
+.container .box {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 60px 40px;
+    }
+}

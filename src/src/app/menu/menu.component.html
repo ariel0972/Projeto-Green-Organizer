@@ -1,0 +1,11 @@
+<nav>
+    <ul [class]="menuStatus">
+        <li *ngFor="let item of menuItems">
+            <a [href]="item.url" (click)="menuStatus = 'closed'">{{item.name}}</a>
+        </li>
+    </ul>
+
+    <i class="material-symbols-outlined" (click)="menuClick()">
+        menu
+    </i>
+</nav>
