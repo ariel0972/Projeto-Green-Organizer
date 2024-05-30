@@ -1,5 +1,7 @@
 const tasklist = document.getElementById("taskList");
 const taskInput = document.getElementById("taskInput");
+const tagInput = document.getElementById("tagInput");
+
 
 // Função para salvar tarefas no localStorage
 function saveTasks() {
@@ -7,7 +9,8 @@ function saveTasks() {
     tasklist.querySelectorAll("li").forEach(li => {
         const taskText = li.querySelector("span").textContent;
         const completed = li.querySelector("span").style.textDecoration === 'line-through';
-        tasks.push({ text: taskText, completed: completed });
+        const tag = li.querySelector("span").textContent;
+        tasks.push({ text: taskText, completed: completed, tag: tag});
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -20,9 +23,10 @@ function loadTasks() {
             const li = document.createElement("li");
             li.innerHTML = `
                 <span>${task.text}</span>
-                <button class="editButton" onClick="editTask(this)" ${task.completed ? "disabled" : ""}>Editar</button>
-                <button class="deleteButton" onClick="deleteTask(this)">Remover</button>
-                <button class="completeButton" onClick="completeTask(this)">Concluir</button>
+                <span class="tag">${task.tag}</span>
+                <button class="editButton fa-solid fa-pencil" onClick="editTask(this)" ${task.completed ? "disabled" : ""}></button>
+                <button class="deleteButton fa-solid fa-trash" onClick="deleteTask(this)"></button>
+                <button class="completeButton fa-solid fa-circle-check" onClick="completeTask(this)"></button>
             `;
             if (task.completed) {
                 li.querySelector("span").style.textDecoration = 'line-through';
@@ -35,21 +39,26 @@ function loadTasks() {
 // Função para adicionar tarefa e salvar no localStorage
 function addTask() {
     const taskText = taskInput.value.trim();
+    const tag = tagInput.value.trim();
+
     if (taskText !== "") {
         const maxText = taskText.substring(0, 35);
 
         const li = document.createElement("li");
         li.innerHTML = `
             <span>${maxText}</span>
-            <button class="editButton" onClick="editTask(this)">Editar</button>
-            <button class="deleteButton" onClick="deleteTask(this)">Remover</button>
-            <button class="completeButton" onClick="completeTask(this)">Concluir</button>
+            <span class="tag">${tag}</span>
+            <button class="editButton fa-solid fa-pencil" onClick="editTask(this)"></button>
+            <button class="deleteButton fa-solid fa-trash" onClick="deleteTask(this)"></button>
+            <button class="completeButton fa-solid fa-circle-check" onClick="completeTask(this)"></button>
         `;
         tasklist.appendChild(li);
         taskInput.value = "";
+        tagInput.value = "";
         saveTasks();
     }
 }
+
 
 // Função para marcar tarefa como concluída, desabilitar edição e salvar no localStorage
 function completeTask(button) {
@@ -102,3 +111,19 @@ window.onbeforeunload = (event) => {
         return message;
     }
 };
+
+
+//Abrir nav-bar responsiva
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", function(){
+    header.classList.toggle("sticky", this.window.scrollY > 0);
+})
+
+let menu = document.querySelector('#menu-icon');
+let navmenu = document.querySelector('.navmenu');
+
+menu.onclick = () => {
+    menu.classList.toggle('bx-x');
+    navmenu.classList.toggle('open');
+}
