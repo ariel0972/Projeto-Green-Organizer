@@ -1,65 +1,44 @@
-﻿window.onload = function (e) {
+﻿const express = require('express');
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = 8080; // Porta do servidor
+
+// Configuração do Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'cade.roots@gmail.com',
+        pass: 'Cade3110'
+    }
+});
+
+app.use(bodyParser.json());
+
+app.post('/recuperar-senha', (req, res) => {
     var txtEmail = document.getElementById("txtEmail");
 
-    txtEmail.focus();
-
-    var form = document.getElementById("frmEsqueceu");
-
-    form.onsubmit = function (e) {
-
-        e.preventDefault();
-
-        var email = txtEmail.value;
-
-        if (email == "") {
-
-            var mensagem = "E-mail obrigatório.";
-
-            exibirMensagemErro(mensagem)
-        }
-        else {
-
-            esqueceuSenha(email);
-        }
+    
+    const mailOptions = {
+        from: 'cade.roots@gmail.com',
+        to: txtEmail,
+        subject: 'Recuperação de Senha',
+        text: 'Olá! Aqui estão as instruções para redefinir sua senha...'
     };
 
-    function esqueceuSenha(email) {
-        var data = JSON.stringify({
-            "email": email
-        });
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Erro ao enviar e-mail de recuperação de senha');
+        } else {
+            console.log('E-mail de recuperação de senha enviado: ' + info.response);
+            res.send('E-mail de recuperação de senha enviado com sucesso');
+        }
+    });
+});
 
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-
-                var result = JSON.parse(this.responseText);
-
-                if (result.sucesso) {
-                   alert(" Email enviado com sucesso!");
-                }
-                else {
-                    exibirMensagemErro(result.mensagem);
-                }
-            }
-        });
-
-        xhr.open("POST", "http://localhost:21399/api/usuario/esqueceuSenha");
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.send(data);
-    }
-    function exibirMensagemErro(mensagem) {
-
-        var spnErro = document.getElementById("spnErro");
-
-        spnErro.innerText = mensagem;
-
-        spnErro.style.display = "block";
-
-        setTimeout(function () {
-            spnErro.style.display = "none";
-        }, 5000);
-    }
-}
+// Inicia o servidor
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+});
