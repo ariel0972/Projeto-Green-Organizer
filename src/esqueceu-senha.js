@@ -1,28 +1,27 @@
-﻿const express = require('express');
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
+﻿const bodyParser = require('body-parser');
+const express = require('express');
+const nodemailer = require("nodemailer");
 
 const app = express();
-const port = 8080; // Porta do servidor
+const port = 5501; // Porta do servidor
+
+app.use(bodyParser.json());
 
 // Configuração do Nodemailer
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'cade.roots@gmail.com',
-        pass: 'Cade3110'
+        pass: 'H@m8_s2M6Fn_@t5'
     }
 });
 
-app.use(bodyParser.json());
-
 app.post('/recuperar-senha', (req, res) => {
-    var txtEmail = document.getElementById("txtEmail");
+    const { email } = req.body;
 
-    
     const mailOptions = {
         from: 'cade.roots@gmail.com',
-        to: txtEmail,
+        to: email,
         subject: 'Recuperação de Senha',
         text: 'Olá! Aqui estão as instruções para redefinir sua senha...'
     };

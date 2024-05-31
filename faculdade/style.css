@@ -158,6 +158,15 @@ header.sticky{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, auto));
     gap: 2rem;
+    transition: all 0.40s;
+}
+.people{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, auto));
+    gap: 2rem;
+}
+.trending-product{
+    padding: 12% 12%;
 }
 
 .row{
@@ -172,6 +181,23 @@ header.sticky{
 }
 .row img:hover{
     transform: scale(0.8);
+
+}
+.print{
+    position: relative;
+    transition: all .40s;
+    height:auto;
+}
+.print img{
+    width: 100%;
+    height: auto;
+    filter:blur(4px);
+    transition: all .40s;
+}
+.print img:hover{
+    filter:blur(0px);
+    transform: scale(1.2);
+    padding: 5% 5%;
 
 }
 .product-text h5{
@@ -190,10 +216,25 @@ header.sticky{
     position: absolute;
     right: 0;
     font-size: 20px;
+    transition: all .40s;
 }
+
 .heart-icon:hover{
+    color:red;
+}
+
+.heart-icon a{
+    color: black;
+    transition: all .40s;
+}
+
+.heart-icon a:hover, .heart-icon a:active{
+    color: red;
+}
+.heart-icon a:visited{
     color: black;
 }
+
 .rayying i{
     color: #ff8c00;
     font-size: 18px;

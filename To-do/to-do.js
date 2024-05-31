@@ -1,7 +1,5 @@
 const tasklist = document.getElementById("taskList");
 const taskInput = document.getElementById("taskInput");
-const tagInput = document.getElementById("tagInput");
-const personalTasks = document.getElementById("personalTask");
 
 
 // Função para salvar tarefas no localStorage
@@ -38,7 +36,6 @@ function loadTasks() {
 // Função para adicionar tarefa e salvar no localStorage
 function addTask() {
     const taskText = taskInput.value.trim();
-    const tag = tagInput.value.trim();
 
     if (taskText !== "") {
         const maxText = taskText.substring(0, 35);
