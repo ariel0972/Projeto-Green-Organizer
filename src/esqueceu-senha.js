@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'cade.roots@gmail.com',
+        user: 'ratosdauninove@gmail.com',
         pass: 'H@m8_s2M6Fn_@t5'
     }
 });
@@ -20,7 +20,7 @@ app.post('/recuperar-senha', (req, res) => {
     const { email } = req.body;
 
     const mailOptions = {
-        from: 'cade.roots@gmail.com',
+        from: 'ratosdauninove@gmail.com',
         to: email,
         subject: 'Recuperação de Senha',
         text: 'Olá! Aqui estão as instruções para redefinir sua senha...'
