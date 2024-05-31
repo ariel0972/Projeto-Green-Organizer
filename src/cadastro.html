@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <title>Cadastro :: novo</title>
     <meta charset="utf-8" />
@@ -8,7 +9,13 @@
     <link rel="icon" type="image/x-icon" href="../faculdade/img/logo.png" />
     <link rel="stylesheet" href="../style.css" type="text/css" />
     <link rel="stylesheet" href="cadastro.css" type="text/css" />
+    <form id="formCadastro">
+        <!-- Seus campos de cadastro aqui -->
+        <form id="formCadastro">
+
+    </form>
     
+
 
 </head>
 
@@ -37,7 +44,7 @@
                 <div class="row">
                     <div class="left">
                         <label for="txtEmail">Email:</label>
-                        <input type="text" class="input-field" id="txtEmail" />
+                        <input type="text" class="input-field" onchange="validarLogin" id="txtEmail" />
                     </div>
 
                     <div class="right">
@@ -53,7 +60,8 @@
                         <select id="slcGenero" class="input-field">
                             <option>Prefiro não informar</option>
                             <option>Masculino</option>
-                            <option>Feminina</option>
+                            <option>Feminino</option>
+                            <option>Outros</option>
                         </select>
                     </div>
 
@@ -78,17 +86,7 @@
     </div>
 
     <script src="cadastro.js"></script>
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

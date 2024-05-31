@@ -17,88 +17,97 @@
     txtNome.focus();
 
     btnCadastrar.onclick = function (e) {
-
         e.preventDefault();
-
         var nome = txtNome.value;
-
-        var sobrenome = document.getElementById("txtSobrenome").value;
-
-        var senha = document.getElementById("txtSenha").value;
-
-        var telefone = document.getElementById("txtTelefone").value;
-
-        var email = document.getElementById("txtEmail").value;
-
-        var genero = document.getElementById("slcGenero").value;
-
-        if (nome == "" ||
-            sobrenome == "" ||
-            senha == "" ||
-            telefone == "" ||
-            email == "" ||
-            genero == "") {
-
-            var mensagem = "Os campos acima são obrigatórios.";
-
+        var sobrenome = txtSobrenome.value;
+        var senha = txtSenha.value;
+        var telefone = txtTelefone.value;
+        var email = txtEmail.value;
+        var genero = slcGenero.value;
+    
+        if (nome == "" || sobrenome == "" || senha == "" || telefone == "" || email == "" || genero == "") {
+            var mensagem = "Todos os campos são obrigatórios.";
             exibirMensagemErro(mensagem);
-        }
-        else {
-            fazerCadastro(nome, sobrenome, email, telefone, genero, senha);
-
+        } else {
+            var resultado = criarConta(nome, sobrenome, email, telefone, genero, senha);
+            if (resultado.sucesso) {
+                alert(resultado.mensagem);
+                // Redirecionar para página de login ou qualquer outra ação necessária
+            } else {
+                exibirMensagemErro(resultado.mensagem);
+            }
         }
     };
+    
 
-    function fazerCadastro(nome, sobrenome, email, telefone, genero, senha) {
+    // Função para criar uma nova conta de usuário
+function criarConta(nome, sobrenome, email, telefone, genero, senha) {
+    // Carregar os dados de usuários existentes
+    var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-        var data = JSON.stringify({
-            "nome": nome,
-            "Sobrenome": sobrenome,
-            "email": email,
-            "telefone": telefone,
-            "genero": genero,
-            "senha": senha
-        });
+    // Verificar se o email já está em uso
+    var usuarioExistente = usuarios.find(function(usuario) {
+        return usuario.email === email;
+    });
 
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+    if (usuarioExistente) {
+        return { sucesso: false, mensagem: "O email já está em uso." };
+    } else {
+        // Adicionar o novo usuário à lista de usuários
+        var novoUsuario = {
+            nome: nome,
+            sobrenome: sobrenome,
+            email: email,
+            telefone: telefone,
+            genero: genero,
+            senha: senha
+        };
+        usuarios.push(novoUsuario);
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
+        // Salvar os dados atualizados no armazenamento local
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-                var result = JSON.parse(this.responseText);
-
-                if (result.sucesso) {
-
-                    localStorage.setItem("usuarioGuid", result.usuarioGuid);
-
-                    window.location.href = "home.html";
-                }
-                else {
-                    exibirMensagemErro(result.mensagem);
-                }
-            }
-        });
-
-        xhr.open("POST", "http://localhost:21399/api/usuario/cadastro");
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.send(data);
+        return { sucesso: true, mensagem: "Conta criada com sucesso." };
     }
+}
 
+// Função para fazer login
+function fazerLogin(email, senha) {
+    // Carregar os dados de usuários existentes
+    var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    function exibirMensagemErro(mensagem) {
+    // Verificar se existe um usuário com o email fornecido
+    var usuario = usuarios.find(function(usuario) {
+        return usuario.email === email;
+    });
 
-        var spnErro = document.getElementById("spnErro");
-
-        spnErro.innerText = mensagem;
-
-        spnErro.style.display = "block";
-
-        setTimeout(function () {
-            spnErro.style.display = "nome";
-        }, 5000);
-
+    if (usuario && usuario.senha === senha) {
+        return { sucesso: true, mensagem: "Login bem-sucedido.", usuario: usuario };
+    } else {
+        return { sucesso: false, mensagem: "Email ou senha incorretos." };
     }
+}
+document.getElementById("formCadastro").onsubmit = function(e) {
+    e.preventDefault();
+
+    var nome = document.getElementById("txtNome").value;
+    var sobrenome = document.getElementById("txtSobrenome").value;
+    var email = document.getElementById("txtEmail").value;
+    var telefone = document.getElementById("txtTelefone").value;
+    var genero = document.getElementById("slcGenero").value;
+    var senha = document.getElementById("txtSenha").value;
+
+    var resultado = criarConta(nome, sobrenome, email, telefone, genero, senha);
+
+    if (resultado.sucesso) {
+        // Conta criada com sucesso, redirecione ou faça qualquer outra coisa necessária
+        alert(resultado.mensagem);
+    } else {
+        // Exiba mensagem de erro
+        alert(resultado.mensagem);
+    }
+};
+
+
 }
 

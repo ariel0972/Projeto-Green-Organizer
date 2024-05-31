@@ -8,12 +8,27 @@
 
     txtEmail.focus();
 
-    btnEntrar.onclick = function (e) {
+    function fazerLogin(email, senha) {
+        // Carregar os dados de usuários existentes do localStorage
+        var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    
+        // Verificar se existe um usuário com o email fornecido
+        var usuario = usuarios.find(function(usuario) {
+            return usuario.email === email;
+        });
+    
+        if (usuario && usuario.senha === senha) {
+            return { sucesso: true, mensagem: "Login bem-sucedido.", usuario: usuario };
+        } else {
+            return { sucesso: false, mensagem: "Email ou senha incorretos." };
+        }
+    }
+    
 
+    btnEntrar.onclick = function (e) {
         e.preventDefault();
 
         var email = txtEmail.value;
-
         var senha = txtSenha.value;
 
         if (email == "") {
@@ -23,7 +38,14 @@
             exibirMensagemErro("Campo Senha obrigatório.");
         }
         else {
-            realizarLogin(email, senha);
+            var resultado = fazerLogin(email, senha);
+            if (resultado.sucesso) {
+                // Login bem-sucedido, redirecione para a página de tarefas
+                window.location.href = "http://localhost:5501/To-do/to-do.html";
+            } else {
+                // Exiba mensagem de erro
+                alert(resultado.mensagem);
+            }
         }
     };
 
@@ -41,39 +63,21 @@
         
     }
 
-    function realizarLogin(email, senha) {
-
-        var login = {
-            "email": email,
-            "senha": senha,
-        };
-        var data = JSON.stringify(login);
-
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-
-                var loginResult = JSON.parse(this.responseText);
-
-                if (loginResult.sucesso) {
-
-                    localStorage.setItem("usuarioGuid", loginResult.usuarioGuid);
-
-                    window.location.href = 'home.html';
-
-                    
-                }
-                else {
-                    exibirMensagemErro(result.mensagem);
-                }
-            }
-        });
-
-        xhr.open("POST", "http://localhost:21399/api/usuario/login");
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.send(data);
-    }
+    document.getElementById("formLogin").onsubmit = function(e) {
+        e.preventDefault();
+    
+        var email = document.getElementById("txtEmail").value;
+        var senha = document.getElementById("txtSenha").value;
+    
+        var resultado = fazerLogin(email, senha);
+    
+        if (resultado.sucesso) {
+            // Login bem-sucedido, redirecione para a página de tarefas
+            window.location.href = "http://localhost:5501/To-do/to-do.html";
+        } else {
+            // Exiba mensagem de erro
+            alert(resultado.mensagem);
+        }
+        
+    };
 }

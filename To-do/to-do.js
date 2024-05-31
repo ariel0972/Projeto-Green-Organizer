@@ -1,6 +1,7 @@
 const tasklist = document.getElementById("taskList");
 const taskInput = document.getElementById("taskInput");
 const tagInput = document.getElementById("tagInput");
+const personalTasks = document.getElementById("personalTask");
 
 
 // Função para salvar tarefas no localStorage
@@ -9,8 +10,7 @@ function saveTasks() {
     tasklist.querySelectorAll("li").forEach(li => {
         const taskText = li.querySelector("span").textContent;
         const completed = li.querySelector("span").style.textDecoration === 'line-through';
-        const tag = li.querySelector("span").textContent;
-        tasks.push({ text: taskText, completed: completed, tag: tag});
+        tasks.push({ text: taskText, completed: completed});
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -23,7 +23,6 @@ function loadTasks() {
             const li = document.createElement("li");
             li.innerHTML = `
                 <span>${task.text}</span>
-                <span class="tag">${task.tag}</span>
                 <button class="editButton fa-solid fa-pencil" onClick="editTask(this)" ${task.completed ? "disabled" : ""}></button>
                 <button class="deleteButton fa-solid fa-trash" onClick="deleteTask(this)"></button>
                 <button class="completeButton fa-solid fa-circle-check" onClick="completeTask(this)"></button>
@@ -47,7 +46,6 @@ function addTask() {
         const li = document.createElement("li");
         li.innerHTML = `
             <span>${maxText}</span>
-            <span class="tag">${tag}</span>
             <button class="editButton fa-solid fa-pencil" onClick="editTask(this)"></button>
             <button class="deleteButton fa-solid fa-trash" onClick="deleteTask(this)"></button>
             <button class="completeButton fa-solid fa-circle-check" onClick="completeTask(this)"></button>

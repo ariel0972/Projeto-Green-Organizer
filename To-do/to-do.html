@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,8 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,400;0,600;1,200;1,700;1,900&family=Poppins:ital,wght@0,200;0,500;1,100;1,200;
-1,300;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap"
- rel="stylesheet">
+1,300;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&display=swap" rel="stylesheet">
     <title>Lista de tarefas</title>
 
 </head>
@@ -35,8 +35,7 @@
         <ul class="navmenu">
             <li><a href="/faculdade/index.html">Home</a></li>
             <li><a href="/To-do/to-do.html">Serviços</a></li>
-            <li><a href="#">Prototipagem</a></li>
-            <li><a href="#">Outros Produtos</a></li>
+            <li><a href="/faculdade/">Prototipagem</a></li>
             <li><a href="/faculdade/documentos.html">Documentos</a></li>
         </ul>
 
@@ -44,23 +43,27 @@
             <a href="../src/login.html"><i class="fa-solid fa-user"></i></a>
             <a href="#"><i class="fa-solid fa-sitemap"></i></a>
 
-            <div  class="fa-solid fa-bars" id="menu-icon"></div>
+            <div class="fa-solid fa-bars" id="menu-icon"></div>
 
         </div>
     </header>
-<section>
-    <div class="container">
-        <h1>Lista de tarefas</h1>
-        <input type="text" id="taskInput" placeholder="Adicione uma tarefa...">
-        <input type="text" id="tagInput" placeholder="Insira uma tag">
-        <button class="btn-add" onclick="addTask()">Adicionar</button>
-        <ul id="taskList"></ul>
-    </div>
-    <div class="tag-columns">
-        
-    </div>
-</section>
-<script src="to-do.js"></script>
-    
+    <section>
+        <div class="container">
+            <h1>Tarefas</h1>
+            <input type="text" id="taskInput" placeholder="Adicione uma tarefa...">
+            <input type="text" id="tagInput" placeholder="Insira uma tag">
+            <button class="btn-add" onclick="addTask()">Adicionar</button>
+            <ul id="taskList"></ul>
+        </div>
+
+        <divc class="personal">
+            <h2>Pessoal</h2>
+            <ul id="personalTask"></ul>
+            </div>
+
+    </section>
+    <script src="to-do.js"></script>
+
 </body>
+
 </html>
